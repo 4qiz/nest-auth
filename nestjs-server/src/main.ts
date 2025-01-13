@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { RedisStore } from 'connect-redis'
 import cookieParser from 'cookie-parser'
-import * as session from 'express-session'
+import session from 'express-session'
 import IORedis from 'ioredis'
 
 import { AppModule } from './app.module'
@@ -14,7 +14,13 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
 
 	const config = app.get(ConfigService)
-	const redis = new IORedis(config.getOrThrow('REDIS_URI'))
+
+	//const redis = new IORedis(config.getOrThrow('REDIS_URI'))
+	const redis = new IORedis({
+		host: config.getOrThrow('REDIS_HOST'),
+		port: config.getOrThrow('REDIS_PORT'),
+		password: config.getOrThrow('REDIS_PASSWORD')
+	})
 
 	app.use(cookieParser(config.getOrThrow<string>('COOKIES_SECRET')))
 
@@ -49,18 +55,18 @@ async function bootstrap() {
 	)
 
 	// //for origin
-	// app.enableCors({
-	// 	origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
-	// 	credentials: true,
-	// 	exposedHeaders: ['set-cookie']
-	// })
-
-	//for all
 	app.enableCors({
-		origin: '*',
+		origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
 		credentials: true,
 		exposedHeaders: ['set-cookie']
 	})
+
+	//for all
+	// app.enableCors({
+	// 	origin: '*',
+	// 	credentials: true,
+	// 	exposedHeaders: ['set-cookie']
+	// })
 
 	await app.listen(config.getOrThrow<number>('APPLICATION_PORT'))
 }

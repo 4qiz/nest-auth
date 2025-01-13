@@ -1,0 +1,82 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./__generated__"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
+}
+
+model User {
+  userId String @id @default(uuid())
+
+  email    String @unique
+  password String
+
+  displayName String
+  picture     String?
+
+  role UserRole @default(REGULAR)
+
+  isVerified         Boolean @default(false)
+  isTwoFactorEnabled Boolean @default(false)
+
+  method AuthMethod
+
+  accounts Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+
+}
+
+model Account {
+  accountId String @id @default(uuid())
+
+  type     String // OAuth
+  provider String
+
+  refreshToken String? 
+  accessToken  String? 
+  expiresAt    Int     
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+
+  user   User?   @relation(fields: [userId], references: [userId])
+  userId String?
+
+}
+
+model Token {
+  tokenId String @id @default(uuid())
+
+  email     String
+  token     String    @unique
+  type      TokenType
+  expiresIn DateTime 
+
+  createdAt DateTime @default(now()) 
+
+}
+
+enum UserRole {
+  REGULAR
+  ADMIN
+  MANAGER
+  DELIVERY
+}
+
+enum AuthMethod {
+  CREDENTIALS
+  GOOGLE
+  YANDEX
+}
+
+enum TokenType {
+  VERIFICATION
+  TWO_FACTOR
+  PASSWORD_RESET
+}

@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import RedisStore from 'connect-redis'
+import { RedisStore } from 'connect-redis'
 import cookieParser from 'cookie-parser'
 import * as session from 'express-session'
 import IORedis from 'ioredis'
@@ -48,8 +48,16 @@ async function bootstrap() {
 		})
 	)
 
+	// //for origin
+	// app.enableCors({
+	// 	origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
+	// 	credentials: true,
+	// 	exposedHeaders: ['set-cookie']
+	// })
+
+	//for all
 	app.enableCors({
-		origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
+		origin: '*',
 		credentials: true,
 		exposedHeaders: ['set-cookie']
 	})

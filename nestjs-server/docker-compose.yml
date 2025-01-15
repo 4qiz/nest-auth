@@ -1,4 +1,16 @@
 services:
+    # nest-app:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     hostname: nest-app
+    #     ports:
+    #         - '4000:4000'
+    #     depends_on:
+    #         - db
+    #     networks:
+    #         - backend
+
     db:
         container_name: postgres
         image: postgres:15.2
@@ -43,3 +55,4 @@ volumes:
 
 networks:
     backend:
+        external: true

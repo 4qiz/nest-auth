@@ -14,7 +14,7 @@ FROM node:20.12.0-alpine3.19 AS runner
 WORKDIR /admin-app
 ENV NODE_ENV production
 
-#COPY --from=builder /admin-app/public ./public
+COPY --from=builder /admin-app/public ./public
 COPY --from=builder /admin-app/package.json ./package.json
 COPY --from=builder /admin-app/.next ./.next
 COPY --from=builder /admin-app/node_modules ./node_modules

@@ -1,16 +1,15 @@
 services:
-  next-app:
-    hostname: auth-client
-    build:
-      context: ./
-      dockerfile:
-        Dockerfile
-    restart: always
-    ports:
-      - 3000:3000
-    networks:
-      - backend
+    auth-client:
+        hostname: auth-client
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - 3000:3000
+        networks:
+            - frontend
 
 networks:
-    backend:
+    frontend:
         external: true

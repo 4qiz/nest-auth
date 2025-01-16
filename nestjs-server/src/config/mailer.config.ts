@@ -16,6 +16,6 @@ export const getMailerConfig = async (
 		}
 	},
 	defaults: {
-		from: `"${configService.getOrThrow<string>('MAIL_FROM')}" ${configService.getOrThrow<string>('MAIL_LOGIN')}`
+		from: configService.getOrThrow<string>('MAIL_FROM') as string
 	}
 })

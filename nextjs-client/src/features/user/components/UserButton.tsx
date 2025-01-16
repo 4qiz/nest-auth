@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { LuLogOut } from 'react-icons/lu'
 
 import { IUser } from '@/features/auth/types'
@@ -37,7 +38,10 @@ export function UserButton({ user }: UserButtonProps) {
 			<DropdownMenuContent className='w-40' align='end'>
 				<DropdownMenuItem
 					disabled={isLoadingLogout}
-					onClick={() => logout()}
+					onClick={() => {
+						logout()
+						redirect('/')
+					}}
 				>
 					<LuLogOut className='mr-2 size-4' />
 					Выйти

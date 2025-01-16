@@ -19,6 +19,13 @@ import { UserService } from './user.service'
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
+	// test backend get endpoint
+	@HttpCode(HttpStatus.OK)
+	@Get('test')
+	public async get() {
+		return 'answer'
+	}
+
 	// /users/profile
 	// получение профиля пользователя
 	@Authorization()

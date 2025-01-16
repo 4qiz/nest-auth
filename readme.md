@@ -1,4 +1,4 @@
-```
+```nestjs-server/.env
 NODE_ENV='development'
 
 APPLICATION_PORT=4000
@@ -19,7 +19,7 @@ POSTGRES_PASSWORD='123456'
 #POSTGRES_HOST='localhost'
 POSTGRES_HOST='192.168.88.183'
 POSTGRES_PORT=5433
-POSTGRES_DB='full-authorization'
+POSTGRES_DB='authorization'
 POSTGRES_URI='postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}'
 
 REDIS_USER='default'
@@ -45,5 +45,12 @@ MAIL_PORT=587
 MAIL_LOGIN=""
 MAIL_PASSWORD=""
 MAIL_FROM=""
+
+```
+
+```nextjs-client/.env
+
+SERVER_URL='http://localhost:4000' # nestjs server
+GOOGLE_RECAPTCHA_SITE_KEY='' # https://www.google.com/recaptcha/about/
 
 ```

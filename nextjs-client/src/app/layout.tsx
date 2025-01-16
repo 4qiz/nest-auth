@@ -1,17 +1,15 @@
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 
-import { ToggleTheme } from '@/shared/components/ui'
 import { MainProvider } from '@/shared/providers'
 import '@/shared/styles/globals.css'
 
 export const metadata: Metadata = {
 	title: {
-		absolute: 'Курс по авторизации',
-		template: '%s | Курс по авторизации'
+		absolute: 'Авторизация',
+		template: '%s | Панель'
 	},
-	description:
-		'Это учебный проект, созданный для демонстрации полного цикла авторизации пользователей'
+	description: 'Авторизация'
 }
 
 export default function RootLayout({
@@ -21,10 +19,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
+			<head>
+				<link rel='icon' data-rh='true' href='/favicon.ico' />
+			</head>
 			<body className={GeistSans.variable}>
 				<MainProvider>
 					<div className='relative flex min-h-screen flex-col'>
-						<ToggleTheme />
 						<div className='flex h-screen w-full items-center justify-center px-4'>
 							{children}
 						</div>

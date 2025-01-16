@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { buttonVariants } from '@/shared/components/ui'
+import { ToggleTheme, buttonVariants } from '@/shared/components/ui'
 
 export default function HomePage() {
 	return (
@@ -9,6 +9,9 @@ export default function HomePage() {
 			<Link href='/auth/login' className={buttonVariants()}>
 				Войти в аккаунт
 			</Link>
+			<div>
+				<ToggleTheme />
+			</div>
 		</div>
 	)
 }
